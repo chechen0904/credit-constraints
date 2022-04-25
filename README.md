@@ -21,12 +21,16 @@ credit-constraints                 # Project folder
 |   ├── python    
 |   ├── stata               
 ├── data                           # Data folder
-|   ├── raw                        # Raw datas: 2017 CHFS  
-|   ├── derived                   # Derived data from running .do files or .ipynb file
-├── results                       # Output files (Empty and will be used later)
+|   ├── raw                        # Raw datas: 2017/2015/2013/2011 CHFS  
+|   ├── derived                    # Derived data from running .do files or .ipynb file
+├── results                        # Output files (Empty and will be used later)
 └── README.md                                                 
 ```
-The organization of this repository are shown above. Due to some derived data are too large, I didn't upload the `derived` folder, so you cannot it. However, you can get those in the `derived` folder by unzipping the data in the `raw` folder and running the code (remember: you need to create a `derived` folder within the `data` folder first).
+The organization of this repository are shown above. 
+
+1. I only focus on data from 2017 CHFS, and use data from other years mainly to solve some missing values issues.
+
+2. Due to some derived data are too large, I didn't upload the `derived` folder, so you cannot it. However, you can get those in the `derived` folder by unzipping the data in the `raw` folder and running the code (remember: you need to create a `derived` folder within the `data` folder first).
 
 ## Order for running code files
 1. 1_merge_data.do
