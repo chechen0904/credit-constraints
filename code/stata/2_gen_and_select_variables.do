@@ -28,6 +28,9 @@ replace health = 3 if a2025b == 2
 replace health = 2 if a2025b == 3
 replace health = 1 if a2025b == 4
 replace health = 0 if a2025b == 5
+*Generate dummy variable of unemployment
+gen unemployment = 0
+replace unemployment = 1 if a3131 == 1 | a3131 == 4 | a3131 == 5 | a3131 == 7
 *Generate dummy variable of house, 0 means no house, 1 is the converse case
 gen own_house = .
 replace own_house = 1 if c2001 == 1 | c2002 > 0 | c2000_1 == 1 | c2000_2 == 1 | c2000_3 == 1 | c2001b ==1 | c2001ba > 0
@@ -57,16 +60,8 @@ replace risk_preference = 2 if h3104 == 4
 replace risk_preference = 3 if h3104 == 3 
 replace risk_preference = 4 if h3104 == 2
 replace risk_preference = 5 if h3104 == 1
-*Generate IV
-bysort county_lab: egen respondents_in_same_group = count(credit_constraints)
-bysort county_lab: egen respondents_with_cc_group1 = count(credit_constraints) if credit_constraints == 1
-bysort county_lab: egen respondents_with_cc_group = max(respondents_with_cc_group1)
-replace respondents_with_cc_group = 0 if respondents_with_cc_group == .
-gen IV = .
-replace IV = (respondents_with_cc_group - 1)/(respondents_in_same_group - 1) if credit_constraints == 1
-replace IV = respondents_with_cc_group /(respondents_in_same_group - 1) if credit_constraints == 0
 *Select variables 
-keep hhid hhid_2011 hhid_2013 hhid_2015 hhid_2017 pline hhead age gender family_member_number education_level married health own_house happiness rural_household_registration credit_constraints financial_literacy risk_preference stock_account stock_investment stock_investment_scope total_income total_consump total_asset total_debt IV
+keep hhid hhid_2011 hhid_2013 hhid_2015 hhid_2017 pline hhead age gender family_member_number education_level married health unemployment own_house happiness rural_household_registration credit_constraints financial_literacy risk_preference stock_account stock_investment stock_investment_scope total_income total_consump total_asset total_debt prov_code
 *Export 2017 CHFS data
 export delimited using "/Users/chenche/Documents/workspace/credit-constraints/data/derived/chfs2017data", replace
 
