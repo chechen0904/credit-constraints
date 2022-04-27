@@ -6,10 +6,17 @@
 - [Che CHEN](https://helloche.cc/)
 
 # Data
-## Source of the data
-> [Data source link](http://chfs.swufe.edu.cn "Data source link")
+## Source of the CHFS data
+> [CHFS data source link](http://chfs.swufe.edu.cn "CHFS data source link")
 
-Note: To access the data you need to apply with your real name and sign a contract after approval before you can use it.
+## Source of the IV data
+> [IV data link](https://github.com/chechen0904/credit-constraints/blob/main/data/raw/Bank_density_data.csv "IV data link")
+
+Note: 
+
+1. To access the CHFS data you need to apply with your real name and sign a contract after approval before you can use it.
+
+2. The IV data `Bank_density_data.csv` is collected by myself. Please check the `process_data.ipynb` file, this file contains detail information for the IV data.
 
 The data used in this study is from the China Household Financial Survey Project (CHFS) organized and managed by China Household Financial Survey and Research Center, Southwestern University of Finance and Economics. 
 
