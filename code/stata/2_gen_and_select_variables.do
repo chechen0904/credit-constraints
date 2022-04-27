@@ -19,8 +19,7 @@ replace married = 1 if a2024 == 2
 gen stock_account = .
 replace stock_account = 1 if d3101 == 1
 replace stock_account = 0 if d3101 == 2
-rename d3110 stock_investment
-rename d3110it stock_investment_scope
+rename d3109 stock_values
 *Generate variable of health, higher value means healthier
 gen health = .
 replace health = 4 if a2025b == 1
@@ -47,21 +46,21 @@ replace rural_household_registration = 0 if a2022 != 1
 gen credit_constraints = 0
 replace credit_constraints = 1 if b3057b_2_1_mc == 1 | b3057b_2_3_mc == 1 | e3006a == 1 | e3005dc_1 == 1 | e3005dc_1 == 3 | e3005dc_2 == 1 | e3005dc_2 == 3 | e3005dc_3 == 1 | e3005dc_3 == 3 | e3005dc_4 == 1 | e3005dc_4 == 3 | e3005dc_5 == 1 | e3005dc_5 == 3 | e3005dc_1 == 6 | e3005dc_6 == 3 | e3005dc_7 == 1 | e3005dc_7 == 3 | e3005dc_8 == 1 | e3005dc_8 == 3 
 *Generate variable of financial literacy, higher value means higher concerns
-gen financial_literacy = .
-replace financial_literacy = 4 if h3101 == 1 
-replace financial_literacy = 3 if h3101 == 2 
-replace financial_literacy = 2 if h3101 == 3 
-replace financial_literacy = 1 if h3101 == 4 
-replace financial_literacy = 0 if h3101 == 5 
-*Generate dummy variable of risk preference
+gen econ_fin_info_concern = .
+replace econ_fin_info_concern = 4 if h3101 == 1 
+replace econ_fin_info_concern = 3 if h3101 == 2 
+replace econ_fin_info_concern = 2 if h3101 == 3 
+replace econ_fin_info_concern = 1 if h3101 == 4 
+replace econ_fin_info_concern = 0 if h3101 == 5 
+*Generate dummy variable of investment risk preference
 gen risk_preference = .
-replace risk_preference = 1 if h3104 == 5 
-replace risk_preference = 2 if h3104 == 4 
-replace risk_preference = 3 if h3104 == 3 
-replace risk_preference = 4 if h3104 == 2
-replace risk_preference = 5 if h3104 == 1
+replace risk_preference = 0 if h3104 == 5 
+replace risk_preference = 1 if h3104 == 4 
+replace risk_preference = 2 if h3104 == 3 
+replace risk_preference = 3 if h3104 == 2
+replace risk_preference = 4 if h3104 == 1
 *Select variables 
-keep hhid hhid_2011 hhid_2013 hhid_2015 hhid_2017 pline hhead age gender family_member_number education_level married health unemployment own_house happiness rural_household_registration credit_constraints financial_literacy risk_preference stock_account stock_investment stock_investment_scope total_income total_consump total_asset total_debt prov_code
+keep hhid hhid_2011 hhid_2013 hhid_2015 hhid_2017 pline hhead age gender family_member_number education_level married health unemployment own_house happiness rural_household_registration credit_constraints econ_fin_info_concern risk_preference stock_account stock_values total_income total_consump total_asset total_debt prov_code
 *Export 2017 CHFS data
 export delimited using "/Users/chenche/Documents/workspace/credit-constraints/data/derived/chfs2017data", replace
 
@@ -69,12 +68,12 @@ export delimited using "/Users/chenche/Documents/workspace/credit-constraints/da
 *Import 2015 CHFS data
 import delimited "/Users/chenche/Documents/workspace/credit-constraints/data/derived/chfs_2015.csv", clear
 *Generate variable of financial literacy, higher value means higher concerns
-gen financial_literacy_2015 = .
-replace financial_literacy_2015 = 4 if a4002a == 1 
-replace financial_literacy_2015 = 3 if a4002a == 2 
-replace financial_literacy_2015 = 2 if a4002a == 3 
-replace financial_literacy_2015 = 1 if a4002a == 4 
-replace financial_literacy_2015 = 0 if a4002a == 5 
+gen econ_fin_info_concern_2015 = .
+replace econ_fin_info_concern_2015 = 4 if a4002a == 1 
+replace econ_fin_info_concern_2015 = 3 if a4002a == 2 
+replace econ_fin_info_concern_2015 = 2 if a4002a == 3 
+replace econ_fin_info_concern_2015 = 1 if a4002a == 4 
+replace econ_fin_info_concern_2015 = 0 if a4002a == 5 
 *Generate dummy variable of risk preference
 gen risk_preference_2015 = .
 replace risk_preference_2015 = 4 if a4003 == 1 
@@ -83,7 +82,7 @@ replace risk_preference_2015 = 2 if a4003 == 3
 replace risk_preference_2015 = 1 if a4003 == 4 
 replace risk_preference_2015 = 0 if a4003 == 5
 *Select variables
-keep hhid_2015 financial_literacy_2015 risk_preference_2015
+keep hhid_2015 econ_fin_info_concern_2015 risk_preference_2015
 *Export 2015 CHFS data
 export delimited using "/Users/chenche/Documents/workspace/credit-constraints/data/derived/chfs2015data.csv", replace
 
@@ -91,12 +90,12 @@ export delimited using "/Users/chenche/Documents/workspace/credit-constraints/da
 *Import 2013 CHFS data
 import delimited "/Users/chenche/Documents/workspace/credit-constraints/data/derived/chfs_2013.csv", clear
 *Generate variable of financial literacy, higher value means higher concerns
-gen financial_literacy_2013 = .
-replace financial_literacy_2013 = 4 if a4002a == 1 
-replace financial_literacy_2013 = 3 if a4002a == 2 
-replace financial_literacy_2013 = 2 if a4002a == 3 
-replace financial_literacy_2013 = 1 if a4002a == 4 
-replace financial_literacy_2013 = 0 if a4002a == 5 
+gen econ_fin_info_concern_2013 = .
+replace econ_fin_info_concern_2013 = 4 if a4002a == 1 
+replace econ_fin_info_concern_2013 = 3 if a4002a == 2 
+replace econ_fin_info_concern_2013 = 2 if a4002a == 3 
+replace econ_fin_info_concern_2013 = 1 if a4002a == 4 
+replace econ_fin_info_concern_2013 = 0 if a4002a == 5 
 *Generate dummy variable of risk preference
 gen risk_preference_2013 = .
 replace risk_preference_2013 = 4 if a4003 == 1 
@@ -105,7 +104,7 @@ replace risk_preference_2013 = 2 if a4003 == 3
 replace risk_preference_2013 = 1 if a4003 == 4 
 replace risk_preference_2013 = 0 if a4003 == 5
 *Select variables
-keep hhid_2013 financial_literacy_2013 risk_preference_2013
+keep hhid_2013 econ_fin_info_concern_2013 risk_preference_2013
 *Export 2013 CHFS data
 export delimited using "/Users/chenche/Documents/workspace/credit-constraints/data/derived/chfs2013data.csv", replace
 
