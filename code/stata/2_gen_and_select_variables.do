@@ -32,19 +32,27 @@ gen unemployment = 0
 replace unemployment = 1 if a3131 == 1 | a3131 == 4 | a3131 == 5 | a3131 == 7
 *Generate dummy variable of house, 0 means no house, 1 is the converse case
 gen own_house = .
-replace own_house = 1 if c2001 == 1 | c2002 > 0 | c2000_1 == 1 | c2000_2 == 1 | c2000_3 == 1 | c2001b ==1 | c2001ba > 0
+replace own_house = 1 if c2001 == 1 | c2002 > 0 | c2001b ==1
 replace own_house = 0 if c2001 == 2
 *Generate dummy variable of happiness
 gen happiness = .
-replace happiness = 1 if h3514 == 1 | h3514 == 2
-replace happiness = 0 if h3514 == 3 | h3514 == 4
+replace happiness = 3 if h3514 == 1 
+replace happiness = 2 if h3514 == 2 
+replace happiness = 1 if h3514 == 3
+replace happiness = 0 if h3514 == 4
 *Generate dummy variable of rural household registration
 gen rural_household_registration = .
 replace rural_household_registration = 1 if a2022 == 1
 replace rural_household_registration = 0 if a2022 != 1
 *Generate dummy variable of credit constraints
 gen credit_constraints = 0
-replace credit_constraints = 1 if b3057b_2_1_mc == 1 | b3057b_2_3_mc == 1 | e3006a == 1 | e3005dc_1 == 1 | e3005dc_1 == 3 | e3005dc_2 == 1 | e3005dc_2 == 3 | e3005dc_3 == 1 | e3005dc_3 == 3 | e3005dc_4 == 1 | e3005dc_4 == 3 | e3005dc_5 == 1 | e3005dc_5 == 3 | e3005dc_1 == 6 | e3005dc_6 == 3 | e3005dc_7 == 1 | e3005dc_7 == 3 | e3005dc_8 == 1 | e3005dc_8 == 3 
+replace credit_constraints = 1 if b3057b_2_1_mc == 1 | b3057b_2_3_mc == 1 | e3006a == 1 | e3005dc_1 == 1 | e3005dc_1 == 3 | e3005dc_2 == 1 | e3005dc_2 == 3 | e3005dc_3 == 1 | e3005dc_3 == 3 | e3005dc_4 == 1 | e3005dc_4 == 3 | e3005dc_5 == 1 | e3005dc_5 == 3 | e3005dc_6 == 1 | e3005dc_6 == 3 | e3005dc_7 == 1 | e3005dc_7 == 3 | e3005dc_8 == 1 | e3005dc_8 == 3 
+*Generate dummy variable of credit constraints - supply side
+gen supply_side_credit_constraints = 0
+replace supply_side_credit_constraints = 1 if b3057b_2_1_mc == 1 | e3006a == 1 | e3005dc_1 == 1 | e3005dc_2 == 1 | e3005dc_3 == 1 | e3005dc_4 == 1 | e3005dc_5 == 1 | e3005dc_6 == 1 | e3005dc_7 == 1 | e3005dc_8 == 1 
+*Generate dummy variable of credit constraints - demand side
+gen demand_side_credit_constraints = 0
+replace demand_side_credit_constraints = 1 if b3057b_2_3_mc == 1 | e3005dc_1 == 3 | e3005dc_2 == 3 | e3005dc_3 == 3 | e3005dc_4 == 3 | e3005dc_5 == 3 | e3005dc_6 == 3 | e3005dc_7 == 3 | e3005dc_8 == 3 
 *Generate variable of financial literacy, higher value means higher concerns
 gen econ_fin_info_concern = .
 replace econ_fin_info_concern = 4 if h3101 == 1 
@@ -60,7 +68,7 @@ replace risk_preference = 2 if h3104 == 3
 replace risk_preference = 3 if h3104 == 2
 replace risk_preference = 4 if h3104 == 1
 *Select variables 
-keep hhid hhid_2011 hhid_2013 hhid_2015 hhid_2017 pline hhead age gender family_member_number education_level married health unemployment own_house happiness rural_household_registration credit_constraints econ_fin_info_concern risk_preference stock_account stock_values total_income total_consump total_asset total_debt prov_code
+keep hhid hhid_2011 hhid_2013 hhid_2015 hhid_2017 pline hhead age gender family_member_number education_level married health unemployment own_house happiness rural_household_registration credit_constraints supply_side_credit_constraints demand_side_credit_constraints econ_fin_info_concern risk_preference stock_account stock_values total_income total_consump total_asset total_debt prov_code
 *Export 2017 CHFS data
 export delimited using "/Users/chenche/Documents/workspace/credit-constraints/data/derived/chfs2017data", replace
 
